@@ -1,0 +1,76 @@
+-- 1.
+SELECT DISTINCT care.CT_Id, care.LName, care.FName
+	FROM caretaker care 
+	WHERE care.CT_Id NOT IN
+		(SELECT DISTINCT comm.CT_Id 
+			FROM commitment comm INNER JOIN v_task vtask ON (comm.VT_Id = vtask.VT_Id)
+			WHERE vtask.Name LIKE 'Officiating');
+
+
+-- 2.
+SELECT DISTINCT care.CT_Id, care.LName, care.FName
+FROM caretaker care INNER JOIN commitment comm ON (care.CT_Id = comm.CT_Id)
+	INNER JOIN v_task vtask ON (comm.VT_Id = vtask.VT_Id)
+WHERE vtask.Num_V >= 1;
+
+	
+-- 3.	
+SELECT DISTINCT care.CT_Id, 
+	CONCAT(care.LName,' ',care.FName) AS caretaker, 
+	GROUP_CONCAT(vtask.VT_Id SEPARATOR '; ' ) AS `task ids`
+FROM caretaker care INNER JOIN commitment comm ON (care.CT_Id = comm.CT_Id)
+	INNER JOIN v_task vtask ON (comm.VT_Id = vtask.VT_Id)
+GROUP BY care.CT_Id, caretaker
+HAVING COUNT(vtask.VT_Id) >= 2;
+
+
+-- 4.
+WITH p AS (SELECT DISTINCT Main_CT_Id AS CT_id
+FROM swimmer),
+
+oc AS 
+(SELECT DISTINCT o.ct_id
+	FROM othercaretaker AS o),
+
+comm AS
+(SELECT DISTINCT comm.ct_id,
+	GROUP_CONCAT(comm.vt_id SEPARATOR '; ' ) AS `task ids`
+ FROM commitment AS comm
+ GROUP BY comm.ct_id
+ HAVING COUNT(DISTINCT comm.VT_Id) >= 2)
+
+SELECT DISTINCT care.CT_Id, 
+	CONCAT(care.LName,' ',care.FName) AS `enthusiastic caretaker`, 
+	comm.`task ids`
+FROM caretaker care INNER JOIN comm ON (care.CT_Id = comm.CT_Id)
+	INNER JOIN oc ON (care.CT_Id = oc.CT_Id)
+	INNER JOIN p ON (p.CT_Id = care.CT_Id);
+
+
+	
+-- 5.
+SELECT DISTINCT care.LName, 
+	care.FName, 
+	vtask.Name AS 'Task Name', 
+	m.title as 'Meet Title'
+FROM caretaker care LEFT JOIN commitment comm ON (care.CT_Id = comm.CT_Id)
+		LEFT JOIN v_task vtask ON (comm.VT_Id = vtask.VT_Id)
+		LEFT JOIN v_tasklist vtasklist ON (vtask.VTL_Id = vtasklist.VTL_Id)
+		LEFT JOIN meet m ON (vtasklist.MeetId = m.MeetId);
+
+		
+-- 6. 
+
+WITH teo AS 
+(SELECT DISTINCT comm.CT_Id,
+	COUNT(comm.VT_Id) AS numTasks
+FROM commitment comm 
+	INNER JOIN v_task vtask ON (comm.VT_Id = vtask.VT_Id)
+	INNER JOIN v_tasklist vtasklist ON (vtask.VTL_Id = vtasklist.VTL_Id)
+	INNER JOIN meet m ON (vtasklist.MeetId = m.MeetId)
+WHERE m.Title = 'UHCL Open'
+GROUP BY comm.CT_Id)
+SELECT DISTINCT care.CT_Id,
+	CONCAT(care.FName,' ',care.LName) AS caretaker, 
+	IFNULL(teo.numTasks,0) AS `Number of committed tasks in UHCL Open`
+FROM caretaker care LEFT JOIN teo ON (care.CT_Id = teo.CT_Id);

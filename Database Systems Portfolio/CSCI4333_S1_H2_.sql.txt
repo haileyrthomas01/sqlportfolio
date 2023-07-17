@@ -1,0 +1,65 @@
+--
+-- CSCI 4333 Spring 2023 HW #2
+-- SQL
+--
+use toyu;
+
+
+-- (2.1) List information of all classes of CSCI and CINF courses in the following manner.
+SELECT DISTINCT c.classId, c.facId, c.year, c.semester, co.rubric, co.number, co.title
+FROM course AS co INNER JOIN class AS c ON (co.courseId = c.courseId)
+WHERE co.rubric = 'CSCI' OR co.rubric = 'CINF';
+
+-- (2.2) List information of all classes taught by a CSCI faculty in the following manner
+SELECT DISTINCT CONCAT(co.rubric, ' ', co.number) AS 'course',
+	co.title, cl.classId, cl.facId,
+	f.deptCode AS 'instructor dept'
+FROM course AS co INNER JOIN class AS cl ON (co.courseId = cl.courseId)
+INNER JOIN faculty AS f ON (cl.facId = f.facId)
+WHERE f.deptCode = 'CSCI';
+
+-- (2.3) Show the information of students who are majoring or minoring in CSCI in the
+-- following manner. The status of a student is dependent on the number of ach
+-- credits:
+-- 1. 0-60: lower
+-- 2. 61-90: junior
+-- 3. >90: senior
+
+SELECT DISTINCT s.stuId, s.fname, s.lname, s.major, s.minor,
+	s.ach AS 'Accumulated credits',
+	CASE
+		WHEN s.ach <= 60 THEN 'lower'
+		WHEN s.ach <= 90 THEN 'junior'
+		WHEN s.ach > 90 THEN 'senior'
+		ELSE ' '
+	END AS status
+FROM student AS s
+WHERE (s.major = 'CSCI' OR s.minor = 'CSCI');
+
+-- (2.4) List the information about the class every student taken without a grade in the
+-- following manner
+SELECT DISTINCT s.stuId, s.fname, s.lname, cl.classId, e.grade
+FROM class AS cl INNER JOIN enroll AS e ON (cl.classId = e.classId)
+INNER JOIN student AS s ON (e.stuId = s.stuId)
+WHERE e.grade is NULL;
+
+-- (2.5) List the information about the class every student taken without a passing
+-- grade (either no grade, or a grade below C-, that is a grade point of the course is
+-- below 1.5.)
+
+SELECT DISTINCT s.stuId, s.fname, s.lname, cl.classId, e.grade
+FROM class AS cl INNER JOIN enroll AS e ON (cl.classId = e.classId)
+INNER JOIN student AS s ON (e.stuId = s.stuId)
+WHERE e.grade IN ('D', 'F')
+OR e.grade is NULL;
+
+-- (2.6) List the students and the courses they enrolled into in the following manner.
+-- List only students with both declared major and minor
+SELECT DISTINCT s.stuId, s.major, s.minor, cl.classId, co.title AS 'course', d.deptName AS 'offered by', e.grade
+FROM class AS cl INNER JOIN enroll AS e ON (cl.classId = e.classId)
+INNER JOIN student AS s ON (e.stuId = s.stuId)
+INNER JOIN course AS co ON (cl.courseId = co.courseId)
+INNER JOIN faculty AS f ON (cl.facId = f.facId)
+INNER JOIN department AS d ON (f.deptCode = d.deptCode)
+WHERE s.major IS NOT NULL 
+OR s.minor IS NOT NULL;
