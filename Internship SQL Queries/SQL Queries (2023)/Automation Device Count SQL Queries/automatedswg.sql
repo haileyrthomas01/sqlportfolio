@@ -1,6 +1,6 @@
 select 
-    count(disgisdb.swgroup_evw.objectid) as count
+    count(swgroup_evw.objectid) as count
 from
-    disgisdb.swgroup_evw
+    swgroup_evw
 where
-    disgisdb.swgroup_evw.dagroup_globalid is NOT NULL
+    swgroup_evw.dagroup_globalid is NOT NULL
