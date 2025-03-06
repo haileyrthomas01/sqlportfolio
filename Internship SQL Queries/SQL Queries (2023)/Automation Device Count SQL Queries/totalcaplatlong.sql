@@ -1,9 +1,9 @@
 select 
-    disgisdb.capacitor_evw.objectid,
-    disgisdb.capacitor_evw.latitude,
-    disgisdb.capacitor_evw.longitude
+    capacitor_evw.objectid,
+    capacitor_evw.latitude,
+    capacitor_evw.longitude
 from 
-    disgisdb.capacitor_evw
+    capacitor_evw
 where 
-    disgisdb.capacitor_evw.owned_by = 'MPC' 
-    and disgisdb.capacitor_evw.feederid Not In ('KC','S2546','S2566','S2576')
+    capacitor_evw.owned_by = 'MPC' 
+    and capacitor_evw.feederid Not In ('KC','S2546','S2566','S2576')
