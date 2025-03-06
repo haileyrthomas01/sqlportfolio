@@ -1,14 +1,14 @@
 select 
-    disgisdb.cust_data.ppid,
-    disgisdb.cust_data.objectid,
-    disgisdb.cust_data.name,
-    disgisdb.cust_data.address,
-    disgisdb.cust_data.account_num,
-    disgisdb.cust_data.account_type,
-    disgisdb.cust_data.phone,
-    disgisdb.cust_data.oper_cntr,
-    disgisdb.cust_data.meter_num
+    cust_data.ppid,
+    cust_data.objectid,
+    cust_data.name,
+    cust_data.address,
+    cust_data.account_num,
+    cust_data.account_type,
+    cust_data.phone,
+    cust_data.oper_cntr,
+    cust_data.meter_num
 from 
-    disgisdb.cust_data
+    cust_data
 order by
-    disgisdb.cust_data.oper_cntr
+    cust_data.oper_cntr
