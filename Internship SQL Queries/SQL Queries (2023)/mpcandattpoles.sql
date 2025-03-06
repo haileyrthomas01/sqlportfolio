@@ -1,9 +1,9 @@
 select
-    disgisdb.pole_evw.owned_by,
-    count(disgisdb.pole_evw.objectid) as "COUNT"
+    pole_evw.owned_by,
+    count(pole_evw.objectid) as "COUNT"
 from
-    disgisdb.pole_evw
+    pole_evw
 where 
-    disgisdb.pole_evw.owned_by IN ('MPC', 'ATT')
+    pole_evw.owned_by IN ('MPC', 'ATT')
 group by
     owned_by
