@@ -1,9 +1,9 @@
 select 
-    count(disgisdb.recloser_evw.objectid) as count
+    count(recloser_evw.objectid) as count
 from
-    disgisdb.recloser_evw
+    recloser_evw
 where
-    disgisdb.recloser_evw.subtypecd = '544'
-    and disgisdb.recloser_evw.owned_by = 'MPC' 
-    and disgisdb.recloser_evw.facility_status = 'E'
-    and disgisdb.recloser_evw.feederid Not In ('KC','S2546','S2566','S2576')
+    recloser_evw.subtypecd = '544'
+    and recloser_evw.owned_by = 'MPC' 
+    and recloser_evw.facility_status = 'E'
+    and recloser_evw.feederid Not In ('KC','S2546','S2566','S2576')
