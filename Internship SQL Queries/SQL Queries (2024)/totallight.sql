@@ -1,2 +1,2 @@
 select count(*) as lights
-from disgisdb.light_evw;
+from light_evw;
