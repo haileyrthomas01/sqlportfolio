@@ -1,2 +1,2 @@
 select count(*) as poles
-from disgisdb.pole_evw;
+from pole_evw;
