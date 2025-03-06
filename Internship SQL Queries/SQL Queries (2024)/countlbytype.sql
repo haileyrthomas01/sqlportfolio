@@ -1,7 +1,7 @@
 SELECT
     COUNT(*),
-    disgisdb.light_evw.ltype AS ltype1
+    light_evw.ltype AS ltype1
 FROM
-    disgisdb.light_evw
+    light_evw
 GROUP BY
-    disgisdb.light_evw.ltype
+    light_evw.ltype
