@@ -1,7 +1,7 @@
 select
-    count(disgisdb.transformer_evw.objectid) as COUNT
+    count(transformer_evw.objectid) as COUNT
 from
-    disgisdb.transformer_evw
+    transformer_evw
 where 
-    disgisdb.transformer_evw.loc_num is NULL 
-    or disgisdb.transformer_evw.loc_num <> 'TCMS DUMMY'
+    transformer_evw.loc_num is NULL 
+    or transformer_evw.loc_num <> 'TCMS DUMMY'
