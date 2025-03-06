@@ -1,5 +1,5 @@
 SELECT
-    disgisdb.fuse_evw.objectid, 
-    disgisdb.fuse_evw.latitude, disgisdb.fuse_evw.longitude
+    fuse_evw.objectid, 
+    fuse_evw.latitude, fuse_evw.longitude
 FROM
-    disgisdb.fuse_evw
+    fuse_evw
