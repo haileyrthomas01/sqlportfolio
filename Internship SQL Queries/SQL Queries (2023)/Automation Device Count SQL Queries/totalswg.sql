@@ -1,5 +1,5 @@
 select 
-    count(disgisdb.swgroup_evw.objectid) as count
+    count(swgroup_evw.objectid) as count
 from
-    disgisdb.swgroup_evw
+    swgroup_evw
 
