@@ -1,6 +1,6 @@
 select 
-    count(disgisdb.recloser_evw.objectid) as count
+    count(recloser_evw.objectid) as count
 from
-    disgisdb.recloser_evw
+    recloser_evw
 where
-    disgisdb.recloser_evw.shn_name is NOT NULL
+    recloser_evw.shn_name is NOT NULL
