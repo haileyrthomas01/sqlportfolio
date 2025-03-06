@@ -1,13 +1,13 @@
 SELECT
-    disgisdb.fuse_evw.objectid,
-    disgisdb.fuse_evw.type,
-    disgisdb.fuse_evw.voltage,
-    disgisdb.fuse_evw.feederid,
-    disgisdb.fuse_evw.phases,
-    disgisdb.fuse_evw.owned_by,
-    decode(disgisdb.fuse_evw.org_id, 'ascst', 'Coast', 'ashttb', 'Pine Belt',
+    fuse_evw.objectid,
+    fuse_evw.type,
+    fuse_evw.voltage,
+    fuse_evw.feederid,
+    fuse_evw.phases,
+    fuse_evw.owned_by,
+    decode(fuse_evw.org_id, 'ascst', 'Coast', 'ashttb', 'Pine Belt',
            'asmrd', 'Meridian') AS division
 FROM
-    disgisdb.fuse_evw
+    fuse_evw
 ORDER BY
     division
