@@ -2,44 +2,44 @@ select *
 from (
     -- Capacitors
     select 
-        disgisdb.capacitor_evw.feederid
+        capacitor_evw.feederid
     from 
-        disgisdb.capacitor_evw
+        capacitor_evw
     where 
-        disgisdb.capacitor_evw.owned_by = 'MPC' 
-        and disgisdb.capacitor_evw.dagroup_globalid is NOT NULL
-        and disgisdb.capacitor_evw.feederid Not In ('KC','S2546','S2566','S2576')
+        capacitor_evw.owned_by = 'MPC' 
+        and capacitor_evw.dagroup_globalid is NOT NULL
+        and capacitor_evw.feederid Not In ('KC','S2546','S2566','S2576')
     UNION
     -- Reclosers
     select 
-        disgisdb.recloser_evw.feederid
+        recloser_evw.feederid
     from
-        disgisdb.recloser_evw
+        recloser_evw
     where
-        disgisdb.recloser_evw.subtypecd = '105'
-        and disgisdb.recloser_evw.owned_by = 'MPC' 
-        and disgisdb.recloser_evw.facility_status = 'E'
-        and disgisdb.recloser_evw.dagroup_globalid is NOT NULL
-        and disgisdb.recloser_evw.feederid Not In ('KC','S2546','S2566','S2576')
+        recloser_evw.subtypecd = '105'
+        and recloser_evw.owned_by = 'MPC' 
+        and recloser_evw.facility_status = 'E'
+        and recloser_evw.dagroup_globalid is NOT NULL
+        and recloser_evw.feederid Not In ('KC','S2546','S2566','S2576')
     UNION
     -- Regulators
     select 
-        disgisdb.regulator_evw.feederid
+        regulator_evw.feederid
     from
-        disgisdb.regulator_evw
+        regulator_evw
     where
-        disgisdb.regulator_evw.owned_by = 'MPC' 
-        and disgisdb.regulator_evw.facility_status = 'E'
-        and disgisdb.regulator_evw.dagroup_globalid is NOT NULL
-        and disgisdb.regulator_evw.feederid Not In ('KC','S2546','S2566','S2576')
+        regulator_evw.owned_by = 'MPC' 
+        and regulator_evw.facility_status = 'E'
+        and regulator_evw.dagroup_globalid is NOT NULL
+        and regulator_evw.feederid Not In ('KC','S2546','S2566','S2576')
     UNION
     -- Switch Gears
     select 
-        disgisdb.switch_evw.feederid
+        switch_evw.feederid
     from
-        disgisdb.switch_evw
+        switch_evw
     where
-        disgisdb.switch_evw.dagroup_globalid is NOT NULL)
+        switch_evw.dagroup_globalid is NOT NULL)
 order by feederid
     
     
