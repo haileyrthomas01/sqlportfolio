@@ -1,8 +1,8 @@
 select 
-    disgisdb.capacitor_evw.feederid
+    capacitor_evw.feederid
 from 
-    disgisdb.capacitor_evw
+    capacitor_evw
 where 
-    disgisdb.capacitor_evw.owned_by = 'MPC' 
-    and disgisdb.capacitor_evw.dagroup_globalid is NOT NULL
-    and disgisdb.capacitor_evw.feederid Not In ('KC','S2546','S2566','S2576')
+    capacitor_evw.owned_by = 'MPC' 
+    and capacitor_evw.dagroup_globalid is NOT NULL
+    and capacitor_evw.feederid Not In ('KC','S2546','S2566','S2576')
